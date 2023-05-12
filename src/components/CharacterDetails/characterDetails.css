@@ -1,0 +1,24 @@
+.capitalize {
+    text-transform: capitalize; 
+}
+
+.items{
+    background-color: #ffdf7e;
+    border-color: aliceblue;
+    border-radius: 2%;
+    border-width: 5%;
+}
+
+.container-header{
+    background-color: #343a40;
+    color: aliceblue;
+    
+}
+
+.container-body{
+    background-color: #dc3545;
+}
+
+.error{
+    color: #dc3545;
+}
