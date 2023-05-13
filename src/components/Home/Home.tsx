@@ -27,6 +27,7 @@ export default function Home() {
         const cachedPage : cacheDataType= data? JSON.parse(data): null;
         checkDateCreated();
         displayPage(cachedPage);
+        console.log('star wars');
     };
    
 
