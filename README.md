@@ -88,6 +88,7 @@ Unit Testing is done using react-testing-library and jest for each react-typescr
 Install star-wars-api with npm
 
 ```bash
+cd star-war
   npm install
   
  npm start
