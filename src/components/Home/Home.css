@@ -43,3 +43,8 @@
 .page-btn {
     border: 2px black solid;
 }
+
+
+.error{
+    font-size: large;
+}

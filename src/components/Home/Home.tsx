@@ -82,7 +82,7 @@ export default function Home() {
         setAdditionalData(pageResults);}
         catch(error){
             setErrorMessage('API Error');
-            setIsFetching(false);
+            //setIsFetching(false);
         }
         
     }
@@ -98,7 +98,7 @@ export default function Home() {
         setCharacters([...results]);}
         catch(error){
             setErrorMessage('API Error');
-            setIsFetching(false);
+            //setIsFetching(false);
         }
     }
 
@@ -128,7 +128,9 @@ export default function Home() {
     if (isFetching ) {
         return (
             <div className="App">
-               
+               {errorMessage ? <div>
+                    <p className="error">API Error</p>
+                    </div> : <></>}
                 <Loader />
             </div>
         );
