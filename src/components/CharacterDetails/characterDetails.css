@@ -22,3 +22,7 @@
 .error{
     color: #dc3545;
 }
+
+.cursor{
+   cursor: pointer
+}

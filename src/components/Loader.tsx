@@ -1,8 +1,9 @@
 import React, {  useState, memo } from "react";
 
 function Loader() {
-    const [loadingMessage, setLoadingMessage] = useState("Loading...");
+    const [loadingMessage, setLoadingMessage] = useState<string>("Loading...");
     
+
 
     return (
         <div data-testid = "loader">

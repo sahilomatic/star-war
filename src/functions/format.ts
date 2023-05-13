@@ -1,10 +1,12 @@
-function formatData(character) {
+import {CharacterPropType , Character} from '../Types/characterType';
+
+function formatData(character: Character): Character {
     character.heightFormatted = formatHeight(character);
     character.weight = formatWeight(character);
     return character;
 }
 
-function formatHeight(character) {
+function formatHeight(character : Character) : string {
     let feet = Math.floor((character.height * 0.3937008) / 12);
     let inches = Math.round((character.height * 0.3937008) % 12);
     if (inches === 12) {
@@ -14,8 +16,8 @@ function formatHeight(character) {
     return isNaN(feet) && isNaN(inches) ? "unknown" : `${feet}' ${inches}"`;
 }
 
-function formatWeight(character) {
+function formatWeight(character: Character) : string| number{
     return isNaN(Math.floor(character.mass * 2.204623)) ? "unknown" : Math.floor(character.mass * 2.204623);
 }
 
-export { formatData, formatHeight, formatWeight };
+export { formatData};

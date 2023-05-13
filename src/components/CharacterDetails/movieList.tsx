@@ -2,10 +2,14 @@ import axios from "axios";
 import Loader from "../Loader";
 import React, {useState , useEffect} from "react";
 import './charcaterDetails';
-export default function MovieList({films}){
-    const [isFetching, setIsFetching] = useState(false);
-    const [movieList, setMovieList] = useState([]);
-    const [errorMessage, setErrorMessage] = useState('');
+
+type PropType = {
+    films: string[];
+}
+export default function MovieList({films}: PropType){
+    const [isFetching, setIsFetching] = useState<boolean>(false);
+    const [movieList, setMovieList] = useState<string[]>([]);
+    const [errorMessage, setErrorMessage] = useState<string>('');
     useEffect(()=>{
         getMovies();
 

@@ -1,50 +1,55 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Home.css";
 import Table from "../Table/Table";
+import Buttons from "./Buttons";
 
-import StationaryComponents from "./StationaryComponents";
+
 import Loader from "../Loader";
 import axios from "axios";
 import { formatData } from "../../functions/format";
 import { checkDateCreated } from "../../functions/checkDateCreated";
 import CharacterDetails from "../CharacterDetails/charcaterDetails";
+import {  Character ,cacheDataType} from '../../Types/characterType';
 
 
 export default function Home() {
-    const [characters, setCharacters] = useState([]);
-    const [isFetching, setIsFetching] = useState(false);
-    const [pageNumber, setPageNumber] = useState(1);
-    const [selectedChar, setSelectedChar] = useState();
+    const [characters, setCharacters] = useState<Character[]>([]);
+    const [isFetching, setIsFetching] = useState<boolean>(false);
+    const [pageNumber, setPageNumber] = useState<number>(1);
+    const [selectedChar, setSelectedChar] = useState<Character | undefined>();
     const prevPageNumber = usePrevious(pageNumber);
     
     
 
     window.onload = () => {
-        const cachedPage = JSON.parse(localStorage.getItem(`page${pageNumber}`));
+        let data = localStorage.getItem(`page${pageNumber}`);
+        const cachedPage : cacheDataType= data? JSON.parse(data): null;
         checkDateCreated();
         displayPage(cachedPage);
     };
+   
 
     useEffect(() => {
-        if (prevPageNumber !== pageNumber) {
-            const cachedPage = JSON.parse(localStorage.getItem(`page${pageNumber}`));
+        let data = localStorage.getItem(`page${pageNumber}`);
+        if (prevPageNumber !== pageNumber ) {
+            const cachedPage : cacheDataType = data? JSON.parse(data): null;
             displayPage(cachedPage);
         }
     });
 
-    function usePrevious(value) {
-        const ref = useRef();
+    function usePrevious(value: number): number | undefined {
+        const ref = useRef<number>();
         useEffect(() => {
             ref.current = value;
         });
         return ref.current;
     }
 
-    function displayPage(cachedPage) {
+    function displayPage(cachedPage : cacheDataType) {
         cachedPage === null ? fetchPage() : setCharacters(cachedPage.components);
     }
 
-    function changePage(type, number) {
+    function changePage(type : string, number?: number) : void {
         
         switch (type) {
             case "next":
@@ -54,7 +59,10 @@ export default function Home() {
                 if (pageNumber > 1) setPageNumber(prevPageNumber => prevPageNumber - 1);
                 break;
             default:
+            if(number){
                 setPageNumber(number);
+            }    
+            
                 break;
         }
     }
@@ -70,7 +78,7 @@ export default function Home() {
         setAdditionalData(pageResults);
     }
     
-    async function setAdditionalData(results) {
+    async function setAdditionalData(results : Character[]) {
         console.log(results);
         for (let character of results) {
             character = formatData(character);
@@ -81,7 +89,7 @@ export default function Home() {
         setCharacters([...results]);
     }
 
-    function fetchHomePlanet(character) {
+    function fetchHomePlanet(character : Character) {
         console.log(character.hom)
         const httpsHomePlanet = character.homeworld;
         return axios
@@ -90,7 +98,7 @@ export default function Home() {
             .catch(error => console.log(error));
     }
 
-    function cachePage(newPageComponents) {
+    function cachePage(newPageComponents : Character[]) {
         
             const storageItem = {
                 pageNumber: pageNumber,
@@ -108,18 +116,16 @@ export default function Home() {
         return (
             <div className="App">
                
-                <Loader pageNumber={pageNumber} />
+                <Loader />
             </div>
         );
     } else {
         return (
             <div className="App">
-                <StationaryComponents
-                    
-                    changePage={changePage}
-                    
-                    
-                />
+                <div>
+                <br />
+                <Buttons changePage={changePage} />
+            </div>
 
                 {selectedChar && <CharacterDetails setSelectedChar={setSelectedChar} selectedChar={selectedChar}/>}
                 <h4 style={{ color: "#fee71e", marginTop: 20 }}>Page: {pageNumber}</h4>

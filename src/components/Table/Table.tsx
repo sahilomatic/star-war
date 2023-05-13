@@ -1,9 +1,31 @@
 import React from "react";
 import './Table.css';
+import {CharacterPropType , Character} from '../../Types/characterType';
+
+/*
+interface KnownCharacters{
+    name : string;
+    gender: string;
+    homePlanet : string;
+    hair_color: string;
+    eye_color : string;
+    films: string[];
 
 
+}
 
-export default function Table(props) {
+interface Characters extends KnownCharacters{
+    [key: string]: any;
+}
+type TableProp = {
+    characters : Characters[];
+    setSelectedChar : (selectedChar : CharacterPropType)=>void;
+
+}
+
+*/
+
+export default function Table(props : CharacterPropType) {
     return (
         <div>
             <table
@@ -21,7 +43,7 @@ export default function Table(props) {
             </tr>
         </thead>
                 
-                <tbody>{props.characters.map((character)=>{
+                <tbody>{props.characters.map((character : Character)=>{
                     return <tr className="altFont" key={character.name}>
                     <td>{character.name}</td>
                     <td >{character.gender}</td>

@@ -1,6 +1,7 @@
-import React, { memo } from "react";
+import  {  memo } from "react";
+import React from 'react';
 
-function Header() {
+function Header(){
     return <p style={{ fontSize: 60 }}>Star Wars Api</p>;
 }
 
