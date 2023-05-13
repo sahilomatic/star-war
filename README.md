@@ -90,6 +90,8 @@ Install star-wars-api with npm
 ```bash
   npm install
   
+ npm start
+  
 ```
     
 ## API Reference
