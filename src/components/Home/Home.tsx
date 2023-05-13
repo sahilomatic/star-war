@@ -17,6 +17,7 @@ export default function Home() {
     const [isFetching, setIsFetching] = useState<boolean>(false);
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [selectedChar, setSelectedChar] = useState<Character | undefined>();
+    const [errorMessage, setErrorMessage] = useState<string>('');
     const prevPageNumber = usePrevious(pageNumber);
     
     
@@ -71,31 +72,42 @@ export default function Home() {
 
     async function fetchPage() {
         setIsFetching(true);
-        const pageResults = await axios
+        setErrorMessage('');
+
+        try{const pageResults = await axios
             .get(`https://swapi.dev/api/people/?page=${pageNumber}`)
             .then(response => response.data.results)
-            .catch(error => console.log(error));
-        setAdditionalData(pageResults);
+            .catch(error => setErrorMessage('API Error'));
+        setAdditionalData(pageResults);}
+        catch(error){
+            setErrorMessage('API Error');
+            setIsFetching(false);
+        }
+        
     }
     
     async function setAdditionalData(results : Character[]) {
-        console.log(results);
-        for (let character of results) {
+        
+        try{for (let character of results) {
             character = formatData(character);
             
             character.homePlanet = await fetchHomePlanet(character);
         }
         cachePage(results);
-        setCharacters([...results]);
+        setCharacters([...results]);}
+        catch(error){
+            setErrorMessage('API Error');
+            setIsFetching(false);
+        }
     }
 
     function fetchHomePlanet(character : Character) {
-        console.log(character.hom)
+        setErrorMessage('');
         const httpsHomePlanet = character.homeworld;
         return axios
             .get(httpsHomePlanet)
             .then(response => response.data.name)
-            .catch(error => console.log(error));
+            .catch(error => setErrorMessage('API Error'));
     }
 
     function cachePage(newPageComponents : Character[]) {
@@ -112,7 +124,7 @@ export default function Home() {
 
    
 
-    if (isFetching) {
+    if (isFetching ) {
         return (
             <div className="App">
                
@@ -122,14 +134,18 @@ export default function Home() {
     } else {
         return (
             <div className="App">
-                <div>
+                {errorMessage ? <div>
+                    <p className="error">API Error</p>
+                    </div> : <>
+                    <div>
                 <br />
                 <Buttons changePage={changePage} />
             </div>
 
                 {selectedChar && <CharacterDetails setSelectedChar={setSelectedChar} selectedChar={selectedChar}/>}
                 <h4 style={{ color: "#fee71e", marginTop: 20 }}>Page: {pageNumber}</h4>
-                <Table characters = { characters} setSelectedChar={setSelectedChar}/>
+                <Table characters = { characters} setSelectedChar={setSelectedChar}/></>}
+                
             </div>
         );
     }
