@@ -42,6 +42,11 @@ Data is merged together from both the API's to collect and merge general charact
 2.3) Character gender can be changed via user
 ![image](https://github.com/sahilomatic/star-war/assets/70945198/7bcee6c8-0336-451c-aacf-a0f77b23a34a)
 
+2.4) On click of page button inuser model, user will be redirected to character detail page using react-router-dom
+![image](https://github.com/sahilomatic/star-war/assets/70945198/9ffbfaa8-5385-4d6a-8bb8-04e0baf00338)
+![image](https://github.com/sahilomatic/star-war/assets/70945198/0a06f082-4dee-463c-97d2-cb517fb39abe)
+
+
 
 ## Features
 
