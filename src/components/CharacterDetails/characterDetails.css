@@ -26,3 +26,8 @@
 .cursor{
    cursor: pointer
 }
+
+.character{
+    font: large;
+    color: white;
+}

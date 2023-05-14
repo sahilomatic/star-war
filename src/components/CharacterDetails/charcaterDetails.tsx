@@ -24,6 +24,12 @@ export default function CharacterDetails({selectedChar, setSelectedChar}: Select
 
   }
 
+  const handleRedirection = ()=>{
+
+    localStorage.setItem('character',JSON.stringify(character));
+    window.location.href='/character';
+  }
+
     return(<>
         
   
@@ -34,11 +40,11 @@ export default function CharacterDetails({selectedChar, setSelectedChar}: Select
           </Modal.Header>
           <Modal.Body className="container-body">
           <Stack gap={4}>
-      <div className="items border" data-testid="name"><label><b>Name</b></label> : <span >{character.name}</span> </div>
-      <div className="items border" data-testid="hair-color"><label><b>Hair Colour</b></label> :  <span className="capitalize">{character.hair_color}</span> </div>
-      <div className="items border" data-testid="eye-color"><label><b>Eye Colour</b></label> :  <span className="capitalize">{character.eye_color}</span>  </div>
-      <div className="items border" data-testid="gender"><label><b>Gender</b></label> :  <span className="capitalize">{showInput? <><span><input placeholder = "Type Gender" value={character.gender} onChange = {handleGenderChange}/></span> <span onClick={()=>{setShowInput(false)}} data-testid="close-input" className="cursor">❌</span></>: <>{character.gender} <span onClick={()=>{setShowInput(true)}} data-testid="show-input" className="cursor">🖊</span> </>}</span></div>
-      <div className="items border" data-testid="home-planet"><label><b>Home Planet</b></label> :   <span className="capitalize">{character.homePlanet}</span></div>
+      <div className="items border" data-testid="name"><h6><b>Name</b></h6> : <span >{character.name}</span> </div>
+      <div className="items border" data-testid="hair-color"><h6><b>Hair Colour</b></h6> :  <span className="capitalize">{character.hair_color}</span> </div>
+      <div className="items border" data-testid="eye-color"><h6><b>Eye Colour</b></h6> :  <span className="capitalize">{character.eye_color}</span>  </div>
+      <div className="items border" data-testid="gender"><h6><b>Gender</b></h6> :  <span className="capitalize">{showInput? <><span><input placeholder = "Type Gender" value={character.gender} onChange = {handleGenderChange}/></span> <span onClick={()=>{setShowInput(false)}} data-testid="close-input" className="cursor">❌</span></>: <>{character.gender} <span onClick={()=>{setShowInput(true)}} data-testid="show-input" className="cursor">🖊</span> </>}</span></div>
+      <div className="items border" data-testid="home-planet"><h6><b>Home Planet</b></h6> :   <span className="capitalize">{character.homePlanet}</span></div>
       <div className="items border">
         <MovieList films={character.films}/>
         
@@ -48,6 +54,9 @@ export default function CharacterDetails({selectedChar, setSelectedChar}: Select
           <Modal.Footer className="container-header">
             <Button variant="secondary" onClick={handleClose}>
               Close
+            </Button>
+            <Button variant="secondary" onClick={handleRedirection}>
+              Page
             </Button>
             
           </Modal.Footer>
